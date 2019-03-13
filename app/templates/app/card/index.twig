@@ -1,0 +1,91 @@
+{% extends 'layout.twig' %}
+
+{% block styles %}
+    <style>
+        #cards_wrapper .row:not(.dt-table) {
+            display: none;
+        }
+
+        #cards_wrapper .ui.grid {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        table.dataTable > tbody > tr.child ul.dtr-details > li {
+            border-bottom: 0;
+        }
+
+        table.dataTable a[href^="tel:"] {
+            display: block;
+            padding: 10px 0;
+        }
+    </style>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        $(document).ready(function() {
+            $('#cards').DataTable({
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Russian.json"
+                },
+                "paginate": false,
+                "lengthChange": false,
+                "filter": true,
+                "info": false,
+                "autoWidth": false
+            });
+
+            $('input#search').on('keyup change', function() {
+                $('#cards').DataTable().search(this.value).draw();
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="ui fluid big icon input">
+        <input id="search" type="text" placeholder="Поиск">
+        <i class="search icon"></i>
+    </div>
+
+    <table id="cards" class="ui celled table responsive nowrap unstackable" style="width:100%">
+        <thead>
+        <tr>
+            <th>ФИО</th>
+            <th>Подъезд Квартира</th>
+            <th>Метки</th>
+            <th>Телефон</th>
+            <th>Примечания</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for card in cards %}
+            <tr>
+                <td>{{ card.firstname }}</td>
+                <td>{{ card.lastname }}</td>
+                <td>
+                    {% for category in card.categories %}
+                        <div>{{ category }}</div>
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for phone in card.phone %}
+                        {% for val in phone %}
+                            <a href="tel:{{ val }}">{{ val }}</a>
+                        {% endfor %}
+                    {% endfor %}
+                </td>
+                <td>
+                    <div>{{ card.note|nl2br|replace({'\\': ''})|raw }}</div>
+                    {% for email in card.email %}
+                        {% for val in email %}
+                            <a href="mailto:{{ val }}">{{ val }}</a>
+                        {% endfor %}
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
