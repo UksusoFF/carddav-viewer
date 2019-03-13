@@ -4,7 +4,6 @@ $finder = PhpCsFixer\Finder::create()
     ->name('*.php')
     ->ignoreDotFiles(true)
     ->ignoreVCS(true)
-    ->notPath('.gradle')
     ->notPath('cache')
     ->notPath('vendor');
 
