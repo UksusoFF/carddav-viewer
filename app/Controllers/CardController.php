@@ -23,7 +23,7 @@ class CardController
 
     public function index(Request $request, Response $response): ResponseInterface
     {
-        return $this->view->render($response, 'app/card/index.twig', [
+        return $this->view->render($response, 'card/index.twig', [
             'title' => getenv('APP_NAME'),
             'cards' => $this->cards->getAll(),
         ]);
