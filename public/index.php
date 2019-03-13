@@ -26,7 +26,7 @@ require __DIR__ . '/../routes/web.php';
 $app->add(new \Tuupola\Middleware\HttpBasicAuthentication([
     'secure' => false,
     'users' => [
-        'access' => getenv('ACCESS_PASSWORD'),
+        'user' => getenv('ACCESS_PASSWORD'),
     ],
 ]));
 
