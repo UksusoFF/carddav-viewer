@@ -7,7 +7,7 @@ return [
         'addContentLengthHeader' => false,
         'displayErrorDetails' => true,
         'view' => [
-            'template_path' => 'app/templates',
+            'template_path' => 'resources/templates',
             'twig' => [
                 'cache' => 'cache/twig',
                 'debug' => true,
