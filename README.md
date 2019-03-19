@@ -1,7 +1,7 @@
 # CardDAV Viewer
 
 Quick, easy and mobile friendly CardDAV frontend.
-Same as [CardDavMATE](https://www.inf-it.com/open-source/clients/carddavmate/) but without editor and responsive.
+Same as [CardDavMATE](https://www.inf-it.com/open-source/clients/carddavmate/) but responsive and without editor.
 
 [Baïkal](https://github.com/sabre-io/Baikal) can be used as backend. Just install it to folder `public\baikal\`.
 
