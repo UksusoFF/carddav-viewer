@@ -28,6 +28,7 @@ $app->add(new \Tuupola\Middleware\HttpBasicAuthentication([
     'users' => [
         'user' => getenv('ACCESS_PASSWORD'),
     ],
+    'path' => '/*',
     'ignore' => [
         '/.well-known/*',
         '/baikal/*',
