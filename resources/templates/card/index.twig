@@ -118,8 +118,14 @@
                 "aoColumns": [{"sType": "natural"}, {"sType": "natural"}, null, null, null],
             });
 
+            var delay;
+
             $('input#search').on('keyup change', function() {
-                $('#cards').DataTable().search(this.value).draw();
+                clearTimeout(delay);
+
+                delay = setTimeout(function() {
+                    $('#cards').DataTable().search(this.value).draw();
+                }, 2000);
             });
         });
     </script>
