@@ -158,20 +158,30 @@
                 </td>
                 <td>
                     {% for phone in card.phones %}
-                        {% if phone.viber != null %}
-                            {% if phone.viber.chat == true %}
-                                <a href="viber://chat?number={{ phone.viber.phone }}"
-                                   style="color: #665CAC;"
-                                   class="viber-wrap">
-                                    <i class="fa fa-whatsapp"></i>
-                                    {{ phone.viber.nick }}
-                                    {% if phone.viber.avatar != null %}
-                                        <img class="avatar" src="viber/{{ phone.viber.avatar }}.jpg">
-                                    {% else %}
-                                        <img class="avatar" src="viber-default.png">
-                                    {% endif %}
-                                </a>
+                        {% if phone.viber.chat != null %}
+                            <a href="viber://chat?number={{ phone.viber.chat.phone }}"
+                               style="color: #665CAC;"
+                               class="viber-wrap">
+                                <i class="fa fa-whatsapp"></i>
+                                {{ phone.viber.chat.nick }}
+                                {% if phone.viber.chat.avatar != null %}
+                                    <img class="avatar" src="viber/{{ phone.viber.chat.avatar }}.jpg">
+                                {% else %}
+                                    <img class="avatar" src="viber-default.png">
                                 {% endif %}
+                            </a>
+                        {% elseif phone.viber.contacts != null %}
+                            <a href="viber://chat?number={{ phone.viber.contacts.phone }}"
+                               style="color: lightgrey;"
+                               class="viber-wrap">
+                                <i class="fa fa-whatsapp"></i>
+                                {{ phone.viber.contacts.nick }}
+                                {% if phone.viber.contacts.avatar != null %}
+                                    <img class="avatar" src="viber/{{ phone.viber.contacts.avatar }}.jpg">
+                                {% else %}
+                                    <img class="avatar" src="viber-default.png">
+                                {% endif %}
+                            </a>
                         {% endif %}
                     {% endfor %}
                     <div>{{ card.note|nl2br|replace({'\\': ''})|raw }}</div>

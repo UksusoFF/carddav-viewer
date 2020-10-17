@@ -31,24 +31,29 @@ class CardController
     public function index(Request $request, Response $response): ResponseInterface
     {
         try {
-            $viber = collect(json_decode($this->meta->read('viber/meta.json'), true));
+            $chat = collect(json_decode($this->meta->read('viber/chat.json'), true));
+            $contacts = collect(json_decode($this->meta->read('viber/contacts.json'), true));
         } catch (FileNotFoundException $exception) {
-            $viber = collect([]);
+            $chat = collect([]);
+            $contacts = collect([]);
         }
 
-        $cards = array_map(static function($card) use ($viber) {
+        $cards = array_map(static function($card) use ($chat, $contacts) {
             return [
                 'firstname' => $card->firstname,
                 'lastname' => $card->lastname,
                 'note' => $card->note ?? '',
                 'categories' => $card->categories,
-                'phones' => array_flatten(array_map(static function($phone) use ($viber) {
+                'phones' => array_flatten(array_map(static function($phone) use ($chat, $contacts) {
                     $phones = [];
 
                     foreach ($phone as $p) {
                         $phones[] = (object)[
                             'number' => $p,
-                            'viber' => (object)$viber->firstWhere('phone', $p),
+                            'viber' => [
+                                'chat' => $chat->firstWhere('phone', $p),
+                                'contacts' => $contacts->firstWhere('phone', $p),
+                            ],
                         ];
                     }
 
