@@ -122,9 +122,10 @@
 
             $('input#search').on('keyup change', function() {
                 clearTimeout(delay);
+                var search = this.value
 
                 delay = setTimeout(function() {
-                    $('#cards').DataTable().search(this.value).draw();
+                    $('#cards').DataTable().search(search).draw();
                 }, 2000);
             });
         });
