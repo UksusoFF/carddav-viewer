@@ -19,6 +19,24 @@
             display: block;
             padding: 10px 0;
         }
+
+        .viber-wrap {
+            position: relative;
+            display: block;
+        }
+
+        .viber-wrap img.avatar {
+            display: none;
+        }
+
+        .viber-wrap:hover img.avatar{
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            max-width: 100px;
+            max-height: 100px;
+        }
     </style>
 {% endblock %}
 
@@ -134,13 +152,28 @@
                     {% endfor %}
                 </td>
                 <td>
-                    {% for phone in card.phone %}
-                        {% for val in phone %}
-                            <a href="tel:{{ val }}">{{ val }}</a>
-                        {% endfor %}
+                    {% for phone in card.phones %}
+                        <a href="tel:{{ phone.number }}">{{ phone.number }}</a>
                     {% endfor %}
                 </td>
                 <td>
+                    {% for phone in card.phones %}
+                        {% if phone.viber != null %}
+                            {% if phone.viber.chat == true %}
+                                <a href="viber://chat?number={{ phone.viber.phone }}"
+                                   style="color: #665CAC;"
+                                   class="viber-wrap">
+                                    <i class="fa fa-whatsapp"></i>
+                                    {{ phone.viber.nick }}
+                                    {% if phone.viber.avatar != null %}
+                                        <img class="avatar" src="viber/{{ phone.viber.avatar }}.jpg">
+                                    {% else %}
+                                        <img class="avatar" src="viber-default.png">
+                                    {% endif %}
+                                </a>
+                                {% endif %}
+                        {% endif %}
+                    {% endfor %}
                     <div>{{ card.note|nl2br|replace({'\\': ''})|raw }}</div>
                     {% for email in card.email %}
                         {% for val in email %}

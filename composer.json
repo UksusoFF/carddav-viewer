@@ -6,7 +6,9 @@
     "type": "project",
     "require": {
         "php": ">=7.1",
+        "ext-json": "*",
         "ext-xmlwriter": "*",
+        "ilhamarrouf/slim-filesystem": "^0.1.0",
         "jeroendesloovere/vcard": "^1.7",
         "rappasoft/laravel-helpers": "^1.0",
         "sabre/dav": "~3.2.0",

@@ -8,11 +8,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 session_start();
 
-if (file_exists(__DIR__ . '/../config/settings.php')) {
-    $settings = require __DIR__ . '/../config/settings.php';
-} else {
-    $settings = require __DIR__ . '/../config/settings.php.dist';
-}
+$settings = require __DIR__ . '/../config/settings.php';
 
 $dotenv = new Dotenv();
 $dotenv->load(__DIR__.'/../.env');
@@ -34,5 +30,11 @@ $app->add(new \Tuupola\Middleware\HttpBasicAuthentication([
         '/baikal/*',
     ],
 ]));
+
+$container = $app->getContainer();
+
+$container['storage'] = function ($container) {
+    return new \Ilhamarrouf\Filesystem\FilesystemManager($container);
+};
 
 $app->run();
