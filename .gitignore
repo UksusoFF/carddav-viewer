@@ -1,5 +1,4 @@
 .env
 .idea
 cache/*
-config/settings.php
 vendor/*
