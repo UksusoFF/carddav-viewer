@@ -43,7 +43,7 @@ class CardController
                 'firstname' => $card->firstname,
                 'lastname' => $card->lastname,
                 'note' => $card->note ?? '',
-                'categories' => $card->categories,
+                'categories' => $card->categories ?? [],
                 'phones' => array_flatten(array_map(static function($phone) use ($chat, $contacts) {
                     $phones = [];
 
