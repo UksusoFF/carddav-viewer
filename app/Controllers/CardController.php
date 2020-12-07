@@ -58,7 +58,7 @@ class CardController
                     }
 
                     return $phones;
-                }, $card->phone)),
+                }, !empty($card->phone) ? $card->phone : [])),
             ];
         }, $this->cards->getAll());
 
